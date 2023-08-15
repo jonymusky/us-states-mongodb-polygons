@@ -1,16 +1,18 @@
+"""Module providingFunction printing python version."""
 import os
 import json
 
 # Path to the folder containing the .geojson files
-path = "./us-states"
+STATES_PATH = "./us-states"
 
 # List to store the extracted data
 data = []
 
 # Iterate through all files in the folder
-for filename in os.listdir(path):
+for filename in os.listdir(STATES_PATH):
     if filename.endswith(".geojson"):
-        with open(os.path.join(path, filename), "r") as file:
+        # Correctly joining the path and specifying the encoding
+        with open(os.path.join(STATES_PATH, filename), "r", encoding="utf-8") as file:
             # Read and parse the .geojson file
             geojson = json.load(file)
 
@@ -24,6 +26,7 @@ for filename in os.listdir(path):
                 "geometry": geometry
             })
 
-# Write the data to a JSON file
-with open("./data/us-states.json", "w") as jsonfile:
+# Write the data to a JSON file (with specified encoding)
+with open("./data/us-states.json", "w", encoding="utf-8") as jsonfile:
     json.dump(data, jsonfile)
+    
